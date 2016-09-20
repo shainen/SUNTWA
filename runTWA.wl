@@ -8,10 +8,10 @@
 (*setup*)
 
 
-SetDirectory[NotebookDirectory[]]
+(*SetDirectory[NotebookDirectory[]]*)
 
 
-(*SetDirectory[Directory[]<>"/SUNTWA"];*)
+SetDirectory[Directory[]<>"/SUNTWA"];
 
 
 <<randomSeed.wl
@@ -29,7 +29,7 @@ SetDirectory[NotebookDirectory[]]
 (*<<gausInits.wl*)
 
 
-<<constTest.wl
+<<constRandHeis.wl
 
 
 (*<<constJonathan.wl*)
@@ -76,15 +76,9 @@ firstTime=First@splitTimes;
 nextTimes=Drop[splitTimes,1];
 Table[
 stuff=singleRunShort[start,discInitsOR,firstTime];
-(*resR=Transpose[stuff[[1]],{2,3,1}];
-resI=Transpose[stuff[[2]],{2,3,1}];*)
-(*allVars={singleRunShort[start,discInitsOR,firstTime]};*)
 Table[
-stuff=Join[stuff,singleRunShort[start,Flatten[discInitsMid[First[trange]-dt,(*Map[Last,stuff,{3}]*)Last@stuff]],trange]];
-(*resR=Join[resR,Transpose[stuff[[1]],{2,3,1}]];
-resI=Join[resI,Transpose[stuff[[2]],{2,3,1}]];*)
+stuff=Join[stuff,singleRunShort[start,Flatten[discInitsMid[First[trange]-dt,Last@stuff]],trange]];
 ,{trange,nextTimes}];
-(*allVars={Transpose[resR,{3,1,2}],Transpose[resI,{3,1,2}]};*)
 newObs=Chop[obsfun/@stuff];
 AddTo[fullTWA,newObs/runs];
 AddTo[squares,newObs^2/runs];
@@ -109,4 +103,4 @@ allData=fullTWA;
 (*stError=Sqrt[squares-fullTWA^2]/Sqrt[runs];*)
 
 
-Save["dataTWA.dat",{mmu,allData,squares,runs}];
+Save["dataTWA.dat",{mmu,allData,squares,runs,localPot,clustSites}];
