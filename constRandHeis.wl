@@ -9,7 +9,7 @@ tmax=10.^tmaxExp;
 steps=1000;
 tExps=Range[tminExp,tmaxExp,(tmaxExp-tminExp)/(steps-1)];
 times=10.^#&/@tExps;
-split=1;
+split=10;
 splitTimes=Partition[times,steps/split];
 
 
@@ -45,7 +45,7 @@ sites=length;
 suLocalDim=2;
 
 
-maxGroupSize=3;
+maxGroupSize=4;
 
 
 dis=20;

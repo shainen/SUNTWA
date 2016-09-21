@@ -76,8 +76,10 @@ firstTime=First@splitTimes;
 nextTimes=Drop[splitTimes,1];
 Table[
 stuff=singleRunShort[start,discInitsOR,firstTime];
+lastTime=Last@firstTime;
 Table[
-stuff=Join[stuff,singleRunShort[start,Flatten[discInitsMid[First[trange]-dt,Last@stuff]],trange]];
+stuff=Join[stuff,singleRunShort[start,Flatten[discInitsMid[lastTime,Last@stuff]],trange]];
+lastTime=Last@trange;
 ,{trange,nextTimes}];
 newObs=Chop[obsfun/@stuff];
 AddTo[fullTWA,newObs/runs];
