@@ -45,13 +45,16 @@ sites=length;
 suLocalDim=2;
 
 
+maxGroupSize=3;
+
+
 dis=20;
 
 
 localPot=RandomReal[{-dis,dis},sites];
 
 
-diffs=Table[1/Abs[(localPot[[n]]-localPot[[n+1]])],{n,length-1}];
+(*diffs=Table[1/Abs[(localPot[[n]]-localPot[[n+1]])],{n,length-1}];
 bsites={};
 While[diffs!=Table[0,{length-1}],
 max=Position[diffs,Max[diffs]][[1,1]];
@@ -59,7 +62,7 @@ AppendTo[bsites,max];
 diffs[[max]]=0;
 If[max!=length-1,diffs[[max+1]]=0];
 If[max!=1,diffs[[max-1]]=0];
-]
+]*)
 
 
 (*ii=1;
@@ -70,7 +73,7 @@ ii+=jj;
 ,{jj,clustSizes}];*)
 
 
-ii=1;
+(*ii=1;
 clustSites={};
 While[ii<=sites,
 If[MemberQ[bsites,ii],
@@ -79,10 +82,28 @@ ii+=2;,
 AppendTo[clustSites,Range[ii,ii]];
 ii+=1;
 ]
-]
+]*)
 
 
 (*clustSizes={1,2,1};*)
+
+
+diffs=Table[1/Abs[(localPot[[n]]-localPot[[n+1]])],{n,length-1}];
+clustSites={};
+While[diffs!=Table[0,{length-1}],
+max=Position[diffs,Max[diffs]][[1,1]];
+g1=Select[clustSites,MemberQ[#,max]&];
+g2=Select[clustSites,MemberQ[#,max+1]&];
+newGroup=Sort[DeleteDuplicates[Flatten[{max,max+1,g1,g2}]]];
+If[Length[newGroup]<=maxGroupSize,
+clustSites=Complement[clustSites,g1];
+clustSites=Complement[clustSites,g2];
+AppendTo[clustSites,newGroup];
+];
+diffs[[max]]=0;
+]
+If[!MemberQ[Flatten[clustSites],#],AppendTo[clustSites,{#}]]&/@Range[sites];
+clustSites=SortBy[clustSites,First];
 
 
 clustSizes=Length/@clustSites;
