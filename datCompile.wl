@@ -54,7 +54,7 @@ AddTo[tempSq,runs*squares];
 AddTo[numPoints,runs];
 ,{rr,list}];
 mean=tempAll/numPoints;
-stEr=Sqrt[(tempSq-tempAll^2)/numPoints]/Sqrt[numPoints];
+stEr=Sqrt[tempSq/numPoints-mean^2]/Sqrt[numPoints];
 )
 
 
