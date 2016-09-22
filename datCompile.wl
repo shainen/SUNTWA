@@ -38,11 +38,12 @@ AddTo[tempAll,data];
 ,{kk,rr}];
 AppendTo[eachOne,tempAll/comb];
 ,{rr,list}];
-avg=Total[eachOne]/Length[list];
+mean=Total[eachOne]/Length[list];
+stEr=Sqrt[Total[eachOne^2]/Length[list]-Total[eachOne/Length[list]]^2];
 )
 
 
-importE[rname_,bunch_,ignore_]:=(
+(*importE[rname_,bunch_,ignore_]:=(
 list=Complement[Range[0,bunch-1],ignore];
 tempAll=0;
 tempSq=0;
@@ -55,7 +56,7 @@ AddTo[numPoints,runs];
 ,{rr,list}];
 mean=tempAll/numPoints;
 stEr=Sqrt[tempSq/numPoints-mean^2]/Sqrt[numPoints];
-)
+)*)
 
 
 dir=StringSplit[ParentDirectory[],"/"][[5]];
@@ -64,10 +65,10 @@ dir=StringSplit[ParentDirectory[],"/"][[5]];
 import[dir,100,{},10];
 
 
-importE[dir,100,{}];
+(*importE[dir,100,{}];*)
 
 
-Save["/data/shainen/"<>dir<>"compiled.dat",{avg,eachOne}];
+(*Save["/data/shainen/"<>dir<>"compiled.dat",{avg,eachOne}];*)
 
 
 Save["/data/shainen/"<>dir<>"_compiled.dat",{mean,stEr}];
