@@ -46,7 +46,7 @@ sites=length;
 suLocalDim=2;
 
 
-maxGroupSize=5;
+maxGroupSize=6;
 
 
 dis=20;
