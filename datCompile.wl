@@ -26,8 +26,29 @@ varImb=Total[eachVarImb]/Length[list];
 )*)
 
 
-import[rname_,runs_,ignore_,comb_]:=(
+(*import[rname_,runs_,ignore_,comb_]:=(
 list=Partition[Complement[Range[0,runs-1],ignore],comb];
+eachOne={};
+Do[
+tempAll=0;
+Do[
+Get["/data/shainen/"<>rname<>"/r"<>ToString[kk]<>"/dataTWA.dat"];
+data=allData;
+AddTo[tempAll,data];
+,{kk,rr}];
+AppendTo[eachOne,tempAll/comb];
+,{rr,list}];
+mean=Total[eachOne]/Length[list];
+stEr=Sqrt[Total[eachOne^2]/Length[list]-Total[eachOne/Length[list]]^2];
+)*)
+
+
+import[rname_,runs_,names_,ignore_]:=(
+fullList={};
+Table[If[FileExistsQ[ParentDirectory[]<>"/"<>rname<>".qsub.o"<>ToString[qname]<>"-"<>ToString[ll]],AppendTo[fullList,ll]],{ll,0,runs-1},{qname,names}];
+fullList=Complement[fullList,ignore];
+comb=Quotient[Length[fullList],10];
+list=Partition[fullList,comb];
 eachOne={};
 Do[
 tempAll=0;
@@ -62,7 +83,7 @@ stEr=Sqrt[tempSq/numPoints-mean^2]/Sqrt[numPoints];
 dir=StringSplit[ParentDirectory[],"/"][[5]];
 
 
-import[dir,100,{},10];
+import[dir,100,{323525},{}];
 
 
 (*importE[dir,100,{}];*)
