@@ -9,7 +9,7 @@ tmax=10.^tmaxExp;
 steps=1000;
 tExps=Range[tminExp,tmaxExp,(tmaxExp-tminExp)/(steps-1)];
 times=10.^#&/@tExps;
-split=10;
+split=1;
 (*splitTimes=Partition[times,steps/split];*)
 splitTimes=Split[times,!Or@@Table[#1<=m tmax/split<=#2,{m,split-1}]&];
 
@@ -30,7 +30,7 @@ tExps=Range[tminExp,tmaxExp,(tmaxExp-tminExp)/(steps-1)];
 times=10.^#&/@tExps;*)
 
 
-runs=1;
+runs=100;
 
 
 (* ::Subsubsection:: *)
@@ -46,10 +46,10 @@ sites=length;
 suLocalDim=2;
 
 
-maxGroupSize=6;
+maxGroupSize=1;
 
 
-dis=20;
+dis=2;
 
 
 localPot=RandomReal[{-dis,dis},sites];

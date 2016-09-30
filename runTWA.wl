@@ -48,7 +48,7 @@ SetDirectory[Directory[]<>"/SUNTWA"];
 Dynamic[rr]
 
 
-Timing[start=makeDSolveStart[localHam,crosHamFunc,observables];]
+(*Timing[start=makeDSolveStart[localHam,crosHamFunc,observables];]*)
 
 
 (*Timing[eachTWA={};
@@ -75,6 +75,8 @@ squares=0;
 firstTime=First@splitTimes;
 nextTimes=Drop[splitTimes,1];
 Table[
+<<constRandHeis.wl;
+start=makeDSolveStart[localHam,crosHamFunc,observables];
 stuff=singleRunShort[start,discInitsOR,firstTime];
 lastTime=Last@firstTime;
 Table[
