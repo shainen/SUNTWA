@@ -30,7 +30,7 @@ tExps=Range[tminExp,tmaxExp,(tmaxExp-tminExp)/(steps-1)];
 times=10.^#&/@tExps;*)
 
 
-runs=100;
+runs=1;
 
 
 (* ::Subsubsection:: *)
@@ -46,7 +46,7 @@ sites=length;
 suLocalDim=2;
 
 
-maxGroupSize=1;
+maxGroupSize=3;
 
 
 dis=2;
