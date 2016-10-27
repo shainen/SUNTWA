@@ -103,8 +103,9 @@ mmu=MaxMemoryUsed[]/10.^6;
 SetDirectory[ParentDirectory[]];
 
 
-allData=fullTWA;
+allData=fullTWA[[All,2]];
+spins=fullTWA[[All,1]];
 (*stError=Sqrt[squares-fullTWA^2]/Sqrt[runs];*)
 
 
-Save["dataTWA.dat",{mmu,allData,squares,runs,localPot,clustSites}];
+Save["dataTWA.dat",{mmu,allData,spins,squares,runs,localPot,clustSites}];
