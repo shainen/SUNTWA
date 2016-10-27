@@ -5,18 +5,18 @@ project=getcwd().split('/')[-1]
 
 runname=getcwd().split('/')[-2]
 
-topic=getcwd().split('/')[-4]
+topic=getcwd().split('/')[-3]
 
 qsubfile = Template("""
 #!/bin/sh
-#PBS -j oe
+#PBS -j y
 #PBS -l mem=400mb
 #PBS -V
 #PBS -m ea
 #PBS -M shainen@gmail.com
 
 RUN_NAME=${rname}
-SCRATCH_DIR=/projectnb/twambl/$$RUN_NAME/r$$PBS_ARRAYID
+SCRATCH_DIR=/projectnb/twambl/$$RUN_NAME/r$$SGE_TASK_ID
 LOCAL_DIR=/project/twambl/${tp}
 
 mkdir -p $$SCRATCH_DIR
@@ -30,7 +30,7 @@ cd $$SCRATCH_DIR/
 
 # Run the script
 cd ${prj}
-echo "SeedRandom[$$PBS_ARRAYID]" > randomSeed.wl
+echo "SeedRandom[$$SGE_TASK_ID]" > randomSeed.wl
 cd ..
 time math -script ${prj}/runTWA.wl
 
@@ -38,7 +38,7 @@ time math -script ${prj}/runTWA.wl
 rm -r ${prj} 
 """)
 
-#with open("../"+runname+".qsub", "w") as f:
-f=open("../"+runname+".qsub", "w")
-f.write(qsubfile.substitute(rname=runname,prj=project,tp=topic))
+with open("../job"+runname+".qsub", "w") as f:
+#f=open("../job"+runname+".qsub", "w")
+    f.write(qsubfile.substitute(rname=runname,prj=project,tp=topic))
 
