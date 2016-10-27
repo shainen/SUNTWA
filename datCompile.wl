@@ -109,7 +109,7 @@ eachOne={};
 Do[
 tempAll=0;
 Do[
-Get["/data/shainen/"<>rname<>"/r"<>ToString[kk]<>"/dataTWA.dat"];
+Get["/projectnb/twambl/"<>rname<>"/r"<>ToString[kk]<>"/dataTWA.dat"];
 data=allData;
 AddTo[tempAll,data];
 ,{kk,rr}];
