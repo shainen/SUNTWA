@@ -10,11 +10,11 @@ topic=getcwd().split('/')[-3]
 qsubfile = Template("""
 #!/bin/sh
 
-#$ -j y
-#$ -l mem=400mb
-#$ -V
-#$ -m ea
-#$ -M shainen@gmail.com
+#$$ -j y
+#$$ -l mem=400mb
+#$$ -V
+#$$ -m ea
+#$$ -M shainen@gmail.com
 
 RUN_NAME=${rname}
 SCRATCH_DIR=/projectnb/twambl/$$RUN_NAME/r$$SGE_TASK_ID
