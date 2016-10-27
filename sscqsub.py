@@ -11,7 +11,6 @@ qsubfile = Template("""
 #!/bin/sh
 
 #$$ -j y
-#$$ -l mem=400mb
 #$$ -V
 #$$ -m ea
 #$$ -M shainen@gmail.com
