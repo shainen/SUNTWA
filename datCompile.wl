@@ -64,7 +64,7 @@ stEr=Sqrt[Total[eachOne^2]/Length[list]-Total[eachOne/Length[list]]^2];
 )*)
 
 
-import[rname_,runs_]:=(
+(*import[rname_,runs_]:=(
 fullList={};
 Table[If[FileExistsQ["/data/shainen/"<>rname<>"/r"<>ToString[kk]<>"/dataTWA.dat"],AppendTo[fullList,kk]],{kk,0,runs-1}];
 comb=Quotient[Length[fullList],10];
@@ -81,7 +81,7 @@ AppendTo[eachOne,tempAll/comb];
 ,{rr,list}];
 mean=Total[eachOne]/Length[list];
 stEr=Sqrt[Total[eachOne^2]/Length[list]-Total[eachOne/Length[list]]^2];
-)
+)*)
 
 
 (*importE[rname_,bunch_,ignore_]:=(
@@ -100,10 +100,30 @@ stEr=Sqrt[tempSq/numPoints-mean^2]/Sqrt[numPoints];
 )*)
 
 
-dir=StringSplit[ParentDirectory[],"/"][[5]];
+import[rname_,runs_]:=(
+fullList={};
+Table[If[FileExistsQ["/projectnb/twambl/"<>rname<>"/r"<>ToString[kk]<>"/dataTWA.dat"],AppendTo[fullList,kk]],{kk,1,runs}];
+comb=Quotient[Length[fullList],10];
+list=Partition[fullList,comb];
+eachOne={};
+Do[
+tempAll=0;
+Do[
+Get["/data/shainen/"<>rname<>"/r"<>ToString[kk]<>"/dataTWA.dat"];
+data=allData;
+AddTo[tempAll,data];
+,{kk,rr}];
+AppendTo[eachOne,tempAll/comb];
+,{rr,list}];
+mean=Total[eachOne]/Length[list];
+stEr=Sqrt[Total[eachOne^2]/Length[list]-Total[eachOne/Length[list]]^2];
+)
 
 
-import[dir,100];
+dir=StringSplit[ParentDirectory[],"/"][[4]];
+
+
+import[dir,10];
 
 
 (*importE[dir,100,{}];*)
@@ -112,4 +132,4 @@ import[dir,100];
 (*Save["/data/shainen/"<>dir<>"compiled.dat",{avg,eachOne}];*)
 
 
-Save["/data/shainen/"<>dir<>"_compiled.dat",{mean,stEr}];
+Save["/projectnb/twambl/"<>dir<>"_compiled.dat",{mean,stEr}];
