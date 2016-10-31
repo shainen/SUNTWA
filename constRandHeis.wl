@@ -30,7 +30,7 @@ tExps=Range[tminExp,tmaxExp,(tmaxExp-tminExp)/(steps-1)];
 times=10.^#&/@tExps;*)
 
 
-runs=1;
+runs=100;
 
 
 (* ::Subsubsection:: *)
