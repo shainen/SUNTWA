@@ -14,6 +14,10 @@
 SetDirectory[Directory[]<>"/SUNTWA"];
 
 
+SetSystemOptions["ParallelOptions" -> "ParallelThreadNumber" -> 1];
+SetSystemOptions["ParallelOptions"->"MKLThreadNumber"->1];
+
+
 <<randomSeed.wl
 
 
