@@ -198,7 +198,7 @@ intBonds=Complement[bonds,extBonds];
 localMat=PauliMatrix[3];
 
 
-hopMats={PauliMatrix[1],PauliMatrix[2],PauliMatrix[3]};
+hopMats={PauliMatrix[1],PauliMatrix[2]};
 
 
 (* ::Subsubsection:: *)
