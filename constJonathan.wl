@@ -3,7 +3,7 @@
 (*tscale=10;*)
 
 
-tminExp=-2;
+(*tminExp=-2;
 tmaxExp=4;
 tmax=10.^tmaxExp;
 steps=1000;
@@ -11,15 +11,15 @@ tExps=Range[tminExp,tmaxExp,(tmaxExp-tminExp)/(steps-1)];
 times=10.^#&/@tExps;
 split=100;
 (*splitTimes=Partition[times,steps/split];*)
-splitTimes=Split[times,!Or@@Table[#1<=m tmax/split<=#2,{m,split-1}]&];
+splitTimes=Split[times,!Or@@Table[#1<=m tmax/split<=#2,{m,split-1}]&];*)
 
 
-(*tmax=20;
-steps=2000;
+tmax=10;
+steps=1000;
 dt=tmax/steps;
-times=Range[0+dt,tmax,dt];
+times=N[Range[0,tmax-dt,dt]];
 split=1;
-splitTimes=Partition[times,steps/split];*)
+splitTimes=Partition[times,steps/split];
 
 
 (*tminExp=-2;
@@ -30,14 +30,14 @@ tExps=Range[tminExp,tmaxExp,(tmaxExp-tminExp)/(steps-1)];
 times=10.^#&/@tExps;*)
 
 
-runs=10;
+runs=100;
 
 
 (* ::Subsubsection:: *)
 (*vars*)
 
 
-length=40;
+length=20;
 
 
 sites=length;
@@ -46,7 +46,7 @@ sites=length;
 suLocalDim=2;
 
 
-maxGroupSize=2;
+maxGroupSize=1;
 
 
 (*dis=10;*)
@@ -55,7 +55,10 @@ maxGroupSize=2;
 (*localPot=RandomReal[{-dis,dis},sites];*)
 
 
-localPot={-0.495460963974,0.229981111878,-0.707592970791,-0.669264172184,-0.309590954355,1.09176755111,-0.747575234176,0.0972739232244,-1.43377636215,0.273191494177,-1.83010670053,0.65801897364,0.512345988527,0.122983644592,-1.44248842988,0.780950867261,-0.0876437995615,-1.55356320629,-0.458311511781,-0.244775319171,-0.255088527936,1.29166945103,1.41098713916,1.12901903104,1.27575216702,-0.998962634945,-1.41634540577,1.29083781132,-0.171546775935,-1.13372878017,-1.17806459389,0.128384470004,0.0449326143957,0.608721596483,1.31593606743,-0.314752808226,-1.52345102415,0.847472424367,-0.312480647777,-0.471583309149};
+(*localPot={-0.495460963974,0.229981111878,-0.707592970791,-0.669264172184,-0.309590954355,1.09176755111,-0.747575234176,0.0972739232244,-1.43377636215,0.273191494177,-1.83010670053,0.65801897364,0.512345988527,0.122983644592,-1.44248842988,0.780950867261,-0.0876437995615,-1.55356320629,-0.458311511781,-0.244775319171,-0.255088527936,1.29166945103,1.41098713916,1.12901903104,1.27575216702,-0.998962634945,-1.41634540577,1.29083781132,-0.171546775935,-1.13372878017,-1.17806459389,0.128384470004,0.0449326143957,0.608721596483,1.31593606743,-0.314752808226,-1.52345102415,0.847472424367,-0.312480647777,-0.471583309149};*)
+
+
+localPot=Table[0,{sites}];
 
 
 (*diffs=Table[1/Abs[(localPot[[n]]-localPot[[n+1]])],{n,length-1}];
@@ -110,7 +113,7 @@ If[!MemberQ[Flatten[clustSites],#],AppendTo[clustSites,{#}]]&/@Range[sites];
 clustSites=SortBy[clustSites,First];*)
 
 
-clustSites=Table[{i,i+1},{i,1,sites-1,2}];
+clustSites=Partition[Range[sites],maxGroupSize];
 
 
 clustSizes=Length/@clustSites;
@@ -198,7 +201,7 @@ intBonds=Complement[bonds,extBonds];
 localMat=PauliMatrix[3];
 
 
-hopMats={PauliMatrix[1],PauliMatrix[2]};
+hopMats={PauliMatrix[1],PauliMatrix[2],0.1*PauliMatrix[3]};
 
 
 (* ::Subsubsection:: *)
@@ -223,7 +226,7 @@ clustOp[op_,ss_]:=KroneckerProduct[IdentityMatrix[suLocalDim^(s2p[ss]-1)],op,Ide
 (*crosCoup[s1_,s2_]:=If[Abs[s1-s2]\[Equal]1,1,0]*)
 
 
-crosCoup[s1_,s2_]:=0.2
+crosCoup[s1_,s2_]:=1
 
 
 (*localPot=Flatten[disConst*corrands+harmV];*)
@@ -240,6 +243,9 @@ clustOp[numOp,cc,ss]
 potHam=Table[Sum[localPot[[ss]]
 clustOp[localMat,ss]
 ,{ss,cc}],{cc,clustSites}];
+
+
+(*potHam=0;*)
 
 
 (*selfCoup=Table[
