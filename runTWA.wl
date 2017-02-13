@@ -33,10 +33,10 @@ SetSystemOptions["MKLThreads" -> 1];
 (*<<gausInits.wl*)
 
 
-(*<<constRandHeis.wl*)
+<<constRandHeis.wl
 
 
-<<constJonathan.wl
+(*<<constJonathan.wl*)
 
 
 (*<<constRepSU3.wl*)
@@ -52,7 +52,7 @@ SetSystemOptions["MKLThreads" -> 1];
 Dynamic[rr]
 
 
-Timing[start=makeDSolveStart[localHam,crosHamFunc,observables];]
+(*Timing[start=makeDSolveStart[localHam,crosHamFunc,observables];]*)
 
 
 (*Timing[eachTWA={};
@@ -79,8 +79,8 @@ squares=0;
 firstTime=First@splitTimes;
 nextTimes=Drop[splitTimes,1];
 Table[
-(*<<constRandHeis.wl;
-start=makeDSolveStart[localHam,crosHamFunc,observables];*)
+<<constRandHeis.wl;
+start=makeDSolveStart[localHam,crosHamFunc,observables];
 stuff=singleRunShort[start,discInitsOR,firstTime];
 (*stuff=singleRunShort[start,meanInitsOR,firstTime];*)
 lastTime=Last@firstTime;
@@ -114,3 +114,6 @@ spins=fullTWA[[All,1]];
 
 
 Save["dataTWA.dat",{mmu,allData,spins,squares,runs,localPot,clustSites}];
+
+
+(*Save["jons6JinfFIXED.dat",fullTWA];*)
