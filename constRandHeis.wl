@@ -30,7 +30,7 @@ tExps=Range[tminExp,tmaxExp,(tmaxExp-tminExp)/(steps-1)];
 times=10.^#&/@tExps;*)
 
 
-runs=10;
+runs=100;
 
 
 (* ::Subsubsection:: *)
@@ -46,10 +46,10 @@ sites=length;
 suLocalDim=2;
 
 
-maxGroupSize=4;
+maxGroupSize=2;
 
 
-dis=6;
+dis=3;
 
 
 localPot=RandomReal[{-dis,dis},sites];
